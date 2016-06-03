@@ -1,0 +1,53 @@
+alias c clear
+alias s ssh
+alias h hostname
+alias ip host
+
+alias ll "ls -al"
+alias ltr "ls -altr"
+
+alias ld "ls -alL \!:1 | grep '^d'"
+alias lc "dir --color=auto -plht"
+alias psw "ps -aef | tr -s ' '"
+alias psg   'ps -ef | grep \!* | grep -v "grep \!*"'
+alias psgc  'ps -ef | grep \!* | grep -v -c "grep \!*"'
+alias rdiff 'ssh \!:1 cat \!:2 | diff - \!:2'
+alias su "sort | uniq -c"
+alias sus "sort | uniq -c | sort -nr"
+alias sush "sort | uniq -c | sort -nr | head"
+alias termreset 'printf "\033c"'
+alias cu "cvs up -d"
+
+#never wanted to use scp
+alias scp "rsync -P -avz -e ssh"
+
+#not doing line numbers and going to end by default
+alias less 'less +G -n'
+
+#forcing string to scan all
+alias strings "strings -a"
+
+#wanted to use big brother vim instead of vi
+alias vi "vim"
+
+#avoid autologout
+unset autologout
+
+setenv CVS_RSH ssh
+setenv TERM xterm-color
+
+#setting nice prompt
+set hostabbr=`hostname -f | awk -F. '{ print sprintf("%s.%c%c%c%c%c", $1,$2,$3,$4,$5,$6);}'`
+set prompt="%n@${hostabbr}:%~%# "
+
+#useful shortcuts (mostly for convenience as default key mapping is not easy to remember)
+bindkey "\e[A"     history-search-backward     # Up arrow
+bindkey "\e[B"     history-search-forward      # Down arrow
+bindkey "^[[5~"    up-history                  # Page up key
+bindkey "^[[6~"    down-history                # Page down key
+bindkey "^[^[[D"   backward-word               # Alt Cursor left
+bindkey "^[^[[C"   forward-word                # Alt Cursor right
+bindkey "^x"       expand-variables            # Ctl + spacebar
+
+# sort produces different output with default LANG and LC_ALL in RedHat
+unsetenv LANG; unsetenv LC_*
